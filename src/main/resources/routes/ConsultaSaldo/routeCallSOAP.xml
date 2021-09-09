@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans                         http://www.springframework.org/schema/beans/spring-beans.xsd                         http://camel.apache.org/schema/spring                         http://camel.apache.org/schema/spring/camel-spring-2.25.4.xsd">
+    <routeContext id="routeCallSOAP" xmlns="http://camel.apache.org/schema/spring">
+        <route id="routeCallSOAP" trace="true">
+            <from id="route_CallSOAP" uri="direct:routeConsultaSaldosSOAP"/>
+            <to id="_to1" uri="velocity:velocity/ConsultaSaldo/DUMMY-Request-NEXUS.vm"/>
+            <log message="antes de llamar a ws: \n${body}"/>
+            <convertBodyTo id="_convertBodyTo1" type="javax.xml.transform.stream.StreamSource"/>
+            <log message="request cxf: \n${body}"/>
+            <setHeader headerName="SOAPAction" id="_setHeader1">
+                <simple>http://tempuri.org/IWSST247/MolST247Consultas</simple>
+            </setHeader>
+            <to uri="cxf:http://127.0.0.1:8088/mockBasic?dataFormat=MESSAGE&amp;exchangePattern=InOut"/>
+            <unmarshal id="_unmarshal1">
+                <gzip/>
+            </unmarshal>
+            <log message="despues de llamar a ws: \n${body} \nheaders:\n${headers}"/>
+            <log id="_log_INFO_SOAP" message="** SET FILE MOCK RESPONSE SOAP **"/>
+            <!--             <to id="_SetDatosResponseSOAP" uri="velocity:velocity/ConsultaSaldo/DUMMY-Response-NEXUS.vm"/> -->
+            <log id="_log_INFO_SOAP_RESPONSE" message="RESPONSE DATA OF SOAP: \n${body}"/>
+            <to id="_toRouteforResponseConsultaSaldos" uri="direct:generateResponseConsultaSaldo"/>
+        </route>
+    </routeContext>
+</beans>

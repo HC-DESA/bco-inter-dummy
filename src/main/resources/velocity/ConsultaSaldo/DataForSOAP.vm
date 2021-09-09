@@ -1,0 +1,10 @@
+<DATA>
+  <cod_servicio>DMCONSAL</cod_servicio>
+  <cod_usuario></cod_usuario>
+  <dir_ip></dir_ip>
+  <id_emisor_servicio>${body.getId_emisor_servicio()}</id_emisor_servicio>
+  <filler_01></filler_01>
+  <num_cta_tar>${body.getNum_cta_tar()}</num_cta_tar>
+  <secuencia_tarjeta>${body.getSecuencia_tarjeta()}</secuencia_tarjeta>
+  <filler_02></filler_02>
+</DATA>

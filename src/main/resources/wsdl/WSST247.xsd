@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tempuri.org/">
+  <xs:element name="MolST247Consultas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="Clave" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="XmlInMol" nillable="true" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MolST247ConsultasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MolST247ConsultasResult" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="coderror" type="xs:int"/>
+        <xs:element minOccurs="0" name="msgerror" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="idwsst247" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="XmlOutMol" nillable="true" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MolST247Transacciones">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="Clave" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="XmlInMol" nillable="true" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MolST247TransaccionesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MolST247TransaccionesResult" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="coderror" type="xs:int"/>
+        <xs:element minOccurs="0" name="msgerror" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="idwsst247" nillable="true" type="xs:string"/>
+        <xs:element minOccurs="0" name="XmlOutMol" nillable="true" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                                 http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.25.4.xsd">
+    <bean class="cl.bcointer.consultasaldo.objetos.DataInput" id="dataInputConsultaSaldo"/>
+    <routeContext id="routeConsultaSaldo" xmlns="http://camel.apache.org/schema/spring">
+        <route id="_route_ReceptionData" streamCache="true">
+            <from id="_fromIR1" uri="direct:routeConsultaSaldos"/>
+            <log id="_log1" message="DATA IN -- CONSULTA-SALDOS -- => \n${body}"/>
+            <doTry id="_doTry1">
+                <unmarshal id="_transObjectConsultaSaldo" ref="jsonToObjectConsultaSaldo"/>
+                <to id="_beanValidatorConsultaSaldo" uri="bean-validator://dataInputConsultaSaldo"/>
+                <doCatch id="_doCatch1">
+                    <exception>org.apache.camel.InvalidPayloadException</exception>
+                    <!-- TODO: Cambiar Direct -->
+                    <log id="_log_Error_Unmarshal" message="Error -> Faltan datos entrantes"/>
+                    <to id="_toERR1" uri="direct:generateResponseConsultaSaldo"/>
+                    <stop id="_stop1"/>
+                </doCatch>
+                <doCatch id="_doCatch2">
+                    <exception>org.apache.camel.component.bean.validator.BeanValidationException</exception>
+                    <!-- TODO: Cambiar Direct -->
+                    <log id="_log_Error_Unmarshal" message="Error -> Consistencia de datos\n: ${exception}, ${body}, ${date:now}"/>
+                    <to id="_toERR2" uri="direct:generateResponseConsultaSaldo"/>
+                    <stop id="_stop2"/>
+                </doCatch>
+            </doTry>
+            <log id="_log-CONSULTA-SALDOS_ValidacionCorrecta" message="*** Los datos fueron validados correctamente ***"/>
+            <to id="_SetDatosParaSOAP" uri="velocity:velocity/ConsultaSaldo/DataForSOAP.vm"/>
+            <log id="_log-CONSULTA-SALDOS_DatosCallSOAP" message="*** XML PARA SOAP CONSULTA-SALDOS ***\n${body}"/>
+            <to id="_to_callSOAP-CONSULTA-SALDO" uri="direct:routeConsultaSaldosSOAP"/>
+        </route>
+        <route id="_route_GenerarRespuesta">
+            <from id="_from1" uri="direct:generateResponseConsultaSaldo"/>
+            <!-- TODO: Generar transfomacion y mapping de datos -->
+            <setHeader headerName="Content-Type" id="_setHeaderResp-ConsultaSaldos">
+                <constant>application/json; charset:utf-8</constant>
+            </setHeader>
+            <to id="_to2" uri="velocity:velocity/ConsultaSaldo/RespuestaOK.vm"/>
+        </route>
+    </routeContext>
+</beans>

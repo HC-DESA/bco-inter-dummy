@@ -1,0 +1,22 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:MolST247Consultas>
+         <!--Optional:-->
+         <tem:Usuario>?</tem:Usuario>
+         <!--Optional:-->
+         <tem:Clave>?</tem:Clave>
+         <!--Optional:-->
+         <tem:XmlInMol><![CDATA[<DATA>
+   <cod_servicio>DMCONSAL</cod_servicio>
+   <cod_usuario> BCO-INT-USER</cod_usuario>
+   <dir_ip>10.10.10.10</dir_ip>
+   <id_emisor_servicio>MOS72779441935674915</id_emisor_servicio>
+   <filler_01></filler_01>
+   <num_cta_tar>000423471______4132</num_cta_tar>
+   <secuencia_tarjeta>0001</secuencia_tarjeta>
+   <filler_02></filler_02>
+</DATA>]]></tem:XmlInMol>
+      </tem:MolST247Consultas>
+   </soapenv:Body>
+</soapenv:Envelope>

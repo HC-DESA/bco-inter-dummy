@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:tns="http://tempuri.org/" xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="         
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd          
+     http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd          
+     http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+     http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd           
+     http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd">
+
+     <cxf:cxfEndpoint address="http://127.0.0.1/dummyNexus/wsDummyNexus_Service"
+        endpointName="tns:Basic" id="cxfEndpointFuseSOAP" wsdlURL="wsdl/WSST247_1.wsdl">
+        <!-- configurar name-space PORT_BINDING correspondiente en el CamelContext -->
+        <cxf:properties>
+            <entry key="dataFormat" value="MESSAGE"/>
+            <entry key="continuationTimeout" value="180000"/>
+        </cxf:properties>
+    </cxf:cxfEndpoint>
+    
+    <!-- StreamCachingStrategy-->
+    <bean class="org.apache.camel.impl.DefaultStreamCachingStrategy" id="streamStrategy">
+        <property name="spoolThreshold" value="4000000"/>
+    </bean>
+
+
+</beans>
