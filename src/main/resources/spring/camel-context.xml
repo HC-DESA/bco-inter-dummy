@@ -3,18 +3,8 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd      http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.25.4.xsd">
     <!-- Importar rutas para servicio ConsultaSaldo -->
-    <import resource="../routes/ConsultaSaldo/routeConsultaSaldo.xml"/>
-    <import resource="../routes/ConsultaSaldo/routeCallSOAP.xml"/>
     <import resource="bean-definitions.xml"/>
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-        <!-- Declaracion de rutas Importadas para ConsultaSaldo-->
-        <routeContextRef ref="routeConsultaSaldo"/>
-        <!-- Declaracion de transformaciones -->
-        <dataFormats>
-            <!-- Transformacion datos entrantes ConsultaSaldo -->
-            <json id="jsonToObjectConsultaSaldo" library="Jackson"
-                prettyPrint="true" unmarshalTypeName="cl.bcointer.consultasaldo.objetos.DataInput"/>
-        </dataFormats>
         <!-- Excepcion general -->
         <onException>
             <exception>java.lang.Exception</exception>
